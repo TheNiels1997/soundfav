@@ -18,6 +18,7 @@ namespace SoundCloud_Favorite_Player
         {
             InitializeComponent();
         }
+
         UserAccount account;
 
         private async void Init()
@@ -29,13 +30,13 @@ namespace SoundCloud_Favorite_Player
             }
             else
             {
-
+                account = await UserAccount.Load(uApath);
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Init();
         }
     }
 }
