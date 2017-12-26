@@ -47,26 +47,13 @@
                     new KeyValuePair<string, string>("scope","non-expiring")
                 });
 
-                using (HttpResponseMessage message = await client.PostAsync("https://soundcloud.com/api/oauth2/token", content))
+                using (HttpResponseMessage message = await client.PostAsync("https://api.soundcloud.com/oauth2/token", content))
                 {
                     if (message.StatusCode != System.Net.HttpStatusCode.OK)
                         throw new System.Exception("Login failed. " + Environment.NewLine + Environment.NewLine + "Please check your credentials and try again.");
 
                     dynamic response = JsonConvert.DeserializeObject(await message.Content.ReadAsStringAsync());
                     AccessToken = response.access_token;
-                }
-            }
-        }
-        private async Task<string> GetPageSource(string url)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage message = await client.GetAsync(url))
-                {
-                    if (message.StatusCode != System.Net.HttpStatusCode.OK)
-                        return null;
-
-                    return await message.Content.ReadAsStringAsync();
                 }
             }
         }
